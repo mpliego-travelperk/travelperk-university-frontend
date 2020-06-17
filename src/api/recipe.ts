@@ -21,4 +21,11 @@ const getRecipe = async (
     return recipe.data
 };
 
-export const RecipeAPI = {getRecipe};
+const getRecipeList = async (): Promise<Array<Recipe>> => {
+    const recipe = await newAxiosInstance().request<Array<Recipe>>({
+        url: `/v1/recipe/`,
+    })
+    return recipe.data
+};
+
+export const RecipeAPI = {getRecipe, getRecipeList};

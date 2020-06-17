@@ -3,16 +3,19 @@ import styled from "styled-components"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTrash, faPlus} from '@fortawesome/free-solid-svg-icons'
 
-const Display = (props: { name: string; }) => {
+
+const Display = (props: { name: string; onDeleteClick?: Function; }) => {
     return (
         <Container>
             <Box>
                 <Label>
                     {props.name}
                 </Label>
+                {props.onDeleteClick &&
                 <Action>
                     <FontAwesomeIcon icon={faTrash} size="xs"/>
                 </Action>
+                }
             </Box>
         </Container>
     )
