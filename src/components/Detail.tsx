@@ -1,14 +1,11 @@
 import styled from 'styled-components'
 
 const Container = styled.div`
-    margin-left: 10%;
-    margin-right: 10%;
 `
 
 const Row = styled.div`
     display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    justify-content: flex-start;
     margin: auto;
 `
 
@@ -16,11 +13,13 @@ const Name = styled.div`
     align-self: center;
     margin: 5px;
     font-weight: bold;
+    flex: 1;
 `
 
 const Value = styled.div`
     align-self: center;
     margin: 5px;
+    flex: 2;
 `
 
 export const Detail = {Container, Row, Name, Value};

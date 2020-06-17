@@ -20,7 +20,9 @@ export const RecipeDetail = () => {
     });
     return (
         <div>
-            {redirect ? <Redirect to="/recipe"/> : <RecipeComponent.Detail recipe={data}/>}
+            {redirect ?
+                <Redirect to="/recipe"/> :
+                <RecipeComponent.Detail recipe={data}/>}
         </div>
     )
 }
