@@ -1,0 +1,15 @@
+version: "2"
+services:
+  backend:
+    image: docker.pkg.github.com/mpliego-travelperk/travelperk-university-backend/backend:latest
+    environment:
+      - DB_PATH=/data/db.sqlite3
+    command: run
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./.data:/data
+  frontend:
+    build: .
+    ports:
+      - "3000:80"

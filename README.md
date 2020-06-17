@@ -1,6 +1,83 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Travelperk University Frontend Exercise 
 
-## Available Scripts
+## Backlog
+
+- [X] Create React, Typescript and Storybook bootstrap.
+- [X] Add basic components, unit testing and routing structure.
+- [X] Implement recipe CRUD.
+- [X] Add CI docker and Github Actions.
+- [X] Write start-up documentation.
+
+For the time being the exercise is an MVP that can be continued.
+
+## Easy Run 
+
+### Frontend & Backend
+
+For easy access to the complete solution without any compilation. 
+Install docker and authenticate with a personal authentication token. 
+The instruction are located in 
+[Github's Documentation Site](https://help.github.com/es/packages/using-github-packages-with-your-projects-ecosystem/configuring-docker-for-use-with-github-packages).
+
+After competing the installation run the following commands.
+
+```shell script
+make docker-db-clean
+docker-compose -f ./example/docker/latest/docker-compose.yml up
+```
+
+Frontend will be expose in http://localhost:3000/ and Backend in http://localhost:8000/ .
+
+### Storybook
+
+```shell script
+ docker run --rm -i -p 9009:80 -t docker.pkg.github.com/mpliego-travelperk/travelperk-university-frontend/storybook:latest
+```
+
+Storybook will be available in http://localhost:9009/.
+
+## Development
+
+### Installation
+
+The only dependencies are Docker and Node 14.4.0 or latest.
+
+### Backend
+
+For the Backend the team created a testing database. To set the backend
+with a sample database run the following commands.
+```shell script
+make docker-db-clean
+docker-compose up backend
+``` 
+
+### Frontend
+
+The dev server will be available in Frontend will be 
+expose in http://localhost:3000/ by running the following command.
+
+```shell script
+make run
+```
+
+Run unit testing with:
+
+```shell script
+make test
+```
+
+### Storybook
+
+In order to start the storybook server run:
+
+```shell script
+make run-storybook
+```
+
+Exposing the url http://localhost:9009/
+
+
+## React Generated Documentation - Available Scripts
 
 In the project directory, you can run:
 

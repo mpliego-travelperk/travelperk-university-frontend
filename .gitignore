@@ -1,3 +1,6 @@
+build
+storybook-static
+.data
 # Created by https://www.toptal.com/developers/gitignore/api/node,react,macos,linux,windows,webstorm+all,yarn
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,react,macos,linux,windows,webstorm+all,yarn
 
