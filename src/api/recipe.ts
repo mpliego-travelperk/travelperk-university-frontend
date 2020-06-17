@@ -46,13 +46,12 @@ const update = async (recipe: Recipe): Promise<Recipe> => {
     return response.data
 };
 
-const remove = async (recipe: Recipe): Promise<Recipe> => {
+const destroy = async (id: string): Promise<Recipe> => {
     const response = await newAxiosInstance().request<Recipe>({
-        method: 'POST',
-        url: `/v1/recipe/`,
-        data: recipe
+        method: 'DELETE',
+        url: `/v1/recipe/${id}/`
     })
     return response.data
 };
 
-export const RecipeAPI = {get, getAll, create, update};
+export const RecipeAPI = {get, getAll, create, update, destroy};
