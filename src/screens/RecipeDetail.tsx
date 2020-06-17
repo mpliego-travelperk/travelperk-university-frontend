@@ -15,6 +15,16 @@ export const RecipeDetail = () => {
             RecipeAPI.create(recipe).then(value => setRecipeID(value.id))
         }
     }
+    const onCreateTag = (name: string) => {
+        RecipeAPI.addIngredient(recipeID, name).then(() =>
+            RecipeAPI.get(recipeID).then(value =>
+                setData(value)))
+    }
+    const onDeleteTag = (id: string) => {
+        RecipeAPI.removeIngredient(id).then(() =>
+            RecipeAPI.get(recipeID).then(value =>
+                setData(value)))
+    }
     useEffect(() => {
         if (recipeID) {
             RecipeAPI.get(recipeID)
@@ -25,7 +35,11 @@ export const RecipeDetail = () => {
     return (
         <div>
             {redirect && <Redirect to="/recipe"/>}
-            {(data || !recipeID ) && <RecipeComponent.Detail recipe={data} onSubmit={onSubmit}/>}
+            {(data || !recipeID) &&
+            <RecipeComponent.Detail recipe={data}
+                                    onSubmit={onSubmit}
+                                    onCreateTag={onCreateTag}
+                                    onDeleteTag={onDeleteTag}/>}
         </div>
     )
 }

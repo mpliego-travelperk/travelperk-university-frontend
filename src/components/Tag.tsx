@@ -2,18 +2,25 @@ import React from 'react'
 import styled from "styled-components"
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTrash, faPlus} from '@fortawesome/free-solid-svg-icons'
+import useFormInput from "../hooks/useFormInput";
 
 
-const Display = (props: { name: string; onDeleteClick?: Function; }) => {
+const Display = (props: { id: string; name: string; onDelete?: Function; }) => {
+    const handleDeleteClick = () => {
+        if (props.onDelete) {
+            props.onDelete(props.id)
+        }
+    }
     return (
         <Container>
             <Box>
                 <Label>
                     {props.name}
                 </Label>
-                {props.onDeleteClick &&
+                {props.onDelete &&
                 <Action>
-                    <FontAwesomeIcon icon={faTrash} size="xs"/>
+                    <FontAwesomeIcon icon={faTrash} size="xs"
+                                     onClick={handleDeleteClick}/>
                 </Action>
                 }
             </Box>
@@ -21,13 +28,18 @@ const Display = (props: { name: string; onDeleteClick?: Function; }) => {
     )
 }
 
-const Add = (props: { placeholder: string }) => {
+const Add = (props: { placeholder: string; onCreate: Function; }) => {
+    const [name, handleNameChange, reset] = useFormInput('');
+    const handleCreateClick = () => {
+        props.onCreate(name)
+        reset()
+    }
     return (
         <Container>
             <Box>
-                <Input placeholder={props.placeholder}/>
-                <Action>
-                    <FontAwesomeIcon icon={faPlus} size="xs"/>
+                <Input key="input" value={name} placeholder={props.placeholder} onChange={handleNameChange}/>
+                <Action key="icon">
+                    <FontAwesomeIcon icon={faPlus} size="xs" onClick={handleCreateClick}/>
                 </Action>
             </Box>
         </Container>

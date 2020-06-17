@@ -8,7 +8,7 @@ import {faTrash, faEdit} from '@fortawesome/free-solid-svg-icons'
 import useFormInput from "../hooks/useFormInput";
 
 
-const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
+const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function; onCreateTag: Function; onDeleteTag: Function }) => {
     const [name, handleNameChange] = useFormInput((props.recipe) ? props.recipe.name : '');
     const [description, handleDescriptionChange] = useFormInput((props.recipe) ? props.recipe.description : '');
     const handleFormSubmit = (e: FormEvent) => {
@@ -45,11 +45,11 @@ const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
                     {props.recipe.ingredients.map((value) => {
                         return (
                             <div style={{paddingRight: '5px', paddingBottom: '5px'}}>
-                                <Tag.Display name={value.name}/>
+                                <Tag.Display id={value.id} name={value.name} onDelete={props.onDeleteTag} />
                             </div>
                         )
                     })}
-                    <Tag.Add placeholder="New Tag"/>
+                    <Tag.Add placeholder="New Tag" onCreate={props.onCreateTag}/>
                 </DetailComponent.Row>
                 }
                 <button type="submit" value="Submit">{(props.recipe) ? 'Update' : 'Create'}</button>
@@ -78,7 +78,7 @@ const List = (props: { recipes: Array<RecipeAPI>; onDelete?: Function; onEdit?: 
                             {value.ingredients.map((value) => {
                                 return (
                                     <div style={{paddingRight: '5px'}} key={value.id}>
-                                        <Tag.Display name={value.name}/>
+                                        <Tag.Display id={value.id} name={value.name}/>
                                     </div>
                                 )
                             })}
