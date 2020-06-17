@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Recipe} from '../components/Recipe'
-import {MemoryRouter} from "react-router-dom";
 
 export default {
     title: 'Recipe',
@@ -43,14 +42,27 @@ export const List = () => {
     );
 }
 
-export const Detail = () => {
+export const Edit = () => {
     const [data] = useState({
         id: 1,
         name: 'Tomato Soup',
         description: 'It\'s a tomato soup.',
         ingredients: [{id: 1, name: 'tomato'}, {id: 2, name: 'water'}]
     });
+    const onSubmit = recipe => {
+        console.log(recipe)
+    }
     return (
-        <Recipe.Detail recipe={data}/>
+        <Recipe.Detail recipe={data} onSubmit={onSubmit}/>
+    );
+}
+
+export const New = () => {
+    const [data] = useState();
+    const onSubmit = recipe => {
+        console.log(recipe)
+    }
+    return (
+        <Recipe.Detail recipe={data} onSubmit={onSubmit}/>
     );
 }

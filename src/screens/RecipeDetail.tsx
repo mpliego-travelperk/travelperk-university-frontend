@@ -5,24 +5,19 @@ import {useParams, Redirect} from 'react-router-dom';
 
 export const RecipeDetail = () => {
     const {id} = useParams();
-    const [data, setData] = useState({
-        id: 0,
-        name: '',
-        description: '',
-        ingredients: []
-    } as Recipe);
+    const [data, setData] = useState();
     const [redirect, setRedirect] = useState(false);
 
     useEffect(() => {
         RecipeAPI.getRecipe(id)
             .then(value => setData(value))
             .catch(() => setRedirect(true))
-    });
+    },[]);
     return (
         <div>
             {redirect ?
                 <Redirect to="/recipe"/> :
-                <RecipeComponent.Detail recipe={data}/>}
+                <RecipeComponent.Detail recipe={data} onSubmit={()=>alert('submitted')}/>}
         </div>
     )
 }

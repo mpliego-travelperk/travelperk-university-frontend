@@ -1,37 +1,61 @@
-import React from 'react';
+import React, {FormEvent} from 'react';
 import {Detail as DetailComponent} from './Detail';
 import {Recipe as RecipeAPI} from "../api/recipe";
 import {Tag} from './Tag';
 import {Table} from './Table';
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faTrash, faEdit} from '@fortawesome/free-solid-svg-icons'
+import useFormInput from "../hooks/useFormInput";
 
 
-const Detail = (props: { recipe: RecipeAPI; }) => {
+const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
+    const [name, handleNameChange] = useFormInput((props.recipe) ? props.recipe.name : '');
+    const [description, handleDescriptionChange] = useFormInput((props.recipe) ? props.recipe.description : '');
+
+    const handleFormSubmit = (e: FormEvent) => {
+        e.preventDefault();
+        let newRecipe = (props.recipe) ? props.recipe : {} as RecipeAPI
+        let isUpdate = (props.recipe !== undefined)
+        newRecipe.name = name
+        newRecipe.description = description
+        props.onSubmit(newRecipe, isUpdate);
+    }
+
     return (
         <DetailComponent.Container>
-            <DetailComponent.Row>
-                <DetailComponent.Name>ID:</DetailComponent.Name>
-                <DetailComponent.Value>{props.recipe.id}</DetailComponent.Value>
-            </DetailComponent.Row>
-            <DetailComponent.Row>
-                <DetailComponent.Name>Name:</DetailComponent.Name>
-                <DetailComponent.Value>{props.recipe.name}</DetailComponent.Value>
-            </DetailComponent.Row>
-            <DetailComponent.Row>
-                <DetailComponent.Name>Description:</DetailComponent.Name>
-                <DetailComponent.Value>{props.recipe.description}</DetailComponent.Value>
-            </DetailComponent.Row>
-            <DetailComponent.Row>
-                {props.recipe.ingredients.map((value) => {
-                    return (
-                        <div style={{paddingRight: '5px'}}>
-                            <Tag.Display name={value.name}/>
-                        </div>
-                    )
-                })}
-                <Tag.Add placeholder="New Tag"/>
-            </DetailComponent.Row>
+            <form onSubmit={handleFormSubmit}>
+                <DetailComponent.Row>
+                    <DetailComponent.Name>ID:</DetailComponent.Name>
+                    <DetailComponent.Value>{(props.recipe) ? props.recipe.id : "New ID"}</DetailComponent.Value>
+                </DetailComponent.Row>
+                <DetailComponent.Row>
+                    <DetailComponent.Name>Name:</DetailComponent.Name>
+                    <DetailComponent.Value>
+                        <input type="text" name="name" value={name} onChange={handleNameChange}
+                               placeholder='Name'/>
+                    </DetailComponent.Value>
+                </DetailComponent.Row>
+                <DetailComponent.Row>
+                    <DetailComponent.Name>Description:</DetailComponent.Name>
+                    <DetailComponent.Value>
+                        <input type="text" name="name" value={description} onChange={handleDescriptionChange}
+                               placeholder='Name'/>
+                    </DetailComponent.Value>
+                </DetailComponent.Row>
+                {props.recipe &&
+                <DetailComponent.Row>
+                    {props.recipe.ingredients.map((value) => {
+                        return (
+                            <div style={{paddingRight: '5px', paddingBottom: '5px'}}>
+                                <Tag.Display name={value.name}/>
+                            </div>
+                        )
+                    })}
+                    <Tag.Add placeholder="New Tag"/>
+                </DetailComponent.Row>
+                }
+                <button type="submit" value="Submit">{(props.recipe) ? 'Update' : 'Create'}</button>
+            </form>
         </DetailComponent.Container>
     )
 }
