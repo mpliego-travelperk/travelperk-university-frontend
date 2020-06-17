@@ -9,9 +9,9 @@ export const RecipeDetail = () => {
     const [data, setData] = useState();
     const [redirect, setRedirect] = useState(false);
     const onSubmit = (recipe: Recipe, isUpdate: boolean) => {
-        if(isUpdate){
+        if (isUpdate) {
             RecipeAPI.update(recipe).then(value => setRecipeID(value.id))
-        }else {
+        } else {
             RecipeAPI.create(recipe).then(value => setRecipeID(value.id))
         }
     }
@@ -24,9 +24,8 @@ export const RecipeDetail = () => {
     }, [recipeID]);
     return (
         <div>
-            {redirect ?
-                <Redirect to="/recipe"/> :
-                <RecipeComponent.Detail recipe={data} onSubmit={onSubmit}/>}
+            {redirect && <Redirect to="/recipe"/>}
+            {(data || !recipeID ) && <RecipeComponent.Detail recipe={data} onSubmit={onSubmit}/>}
         </div>
     )
 }

@@ -11,17 +11,14 @@ import useFormInput from "../hooks/useFormInput";
 const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
     const [name, handleNameChange] = useFormInput((props.recipe) ? props.recipe.name : '');
     const [description, handleDescriptionChange] = useFormInput((props.recipe) ? props.recipe.description : '');
-
     const handleFormSubmit = (e: FormEvent) => {
         e.preventDefault();
         let newRecipe = (props.recipe) ? props.recipe : {} as RecipeAPI
         let isUpdate = (props.recipe !== undefined)
         newRecipe.name = name
         newRecipe.description = description
-        console.log(newRecipe)
         props.onSubmit(newRecipe, isUpdate);
     }
-
     return (
         <DetailComponent.Container>
             <form onSubmit={handleFormSubmit}>
@@ -40,7 +37,7 @@ const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
                     <DetailComponent.Name>Description:</DetailComponent.Name>
                     <DetailComponent.Value>
                         <input type="text" name="description" value={description} onChange={handleDescriptionChange}
-                               placeholder='Name'/>
+                               placeholder='Description'/>
                     </DetailComponent.Value>
                 </DetailComponent.Row>
                 {props.recipe &&
@@ -88,8 +85,10 @@ const List = (props: { recipes: Array<RecipeAPI>; onDelete?: Function; onEdit?: 
                         </Table.Cell>
                         <Table.Cell key="actions">
                             <FontAwesomeIcon icon={faTrash} size="xs" key="delete"
+                                             style={{cursor: 'pointer'}}
                                              onClick={() => props.onDelete && props.onDelete(value.id)}/>
-                            <FontAwesomeIcon icon={faEdit} size="xs" key="edit" style={{paddingLeft: "4px"}}
+                            <FontAwesomeIcon icon={faEdit} size="xs" key="edit"
+                                             style={{cursor: 'pointer', paddingLeft: "4px"}}
                                              onClick={() => props.onEdit && props.onEdit(value.id)}/>
                         </Table.Cell>
                     </Table.Row>
