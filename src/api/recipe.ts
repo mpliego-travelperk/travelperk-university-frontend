@@ -1,19 +1,19 @@
 import {newAxiosInstance} from "../util/api";
 
 export interface Recipe {
-    id: number
+    id: string
     name: string
     description: string
     ingredients: Array<Ingredient>
 }
 
 export interface Ingredient {
-    id: number
+    id: string
     name: string
 }
 
-const getRecipe = async (
-    id: number
+const get = async (
+    id: string
 ): Promise<Recipe> => {
     const recipe = await newAxiosInstance().request<Recipe>({
         url: `/v1/recipe/${id}/`,
@@ -21,11 +21,38 @@ const getRecipe = async (
     return recipe.data
 };
 
-const getRecipeList = async (): Promise<Array<Recipe>> => {
+const getAll = async (): Promise<Array<Recipe>> => {
     const recipe = await newAxiosInstance().request<Array<Recipe>>({
         url: `/v1/recipe/`,
     })
     return recipe.data
 };
 
-export const RecipeAPI = {getRecipe, getRecipeList};
+const create = async (recipe: Recipe): Promise<Recipe> => {
+    const response = await newAxiosInstance().request<Recipe>({
+        method: 'POST',
+        url: `/v1/recipe/`,
+        data: recipe
+    })
+    return response.data
+};
+
+const update = async (recipe: Recipe): Promise<Recipe> => {
+    const response = await newAxiosInstance().request<Recipe>({
+        method: 'PUT',
+        url: `/v1/recipe/${recipe.id}/`,
+        data: recipe
+    })
+    return response.data
+};
+
+const remove = async (recipe: Recipe): Promise<Recipe> => {
+    const response = await newAxiosInstance().request<Recipe>({
+        method: 'POST',
+        url: `/v1/recipe/`,
+        data: recipe
+    })
+    return response.data
+};
+
+export const RecipeAPI = {get, getAll, create, update};

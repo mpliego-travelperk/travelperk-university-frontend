@@ -3,15 +3,15 @@ import {render, waitForElement, screen} from '@testing-library/react'
 import {Recipe, RecipeAPI} from "../api/recipe";
 import {RecipeDetail} from "./RecipeDetail";
 import {createMemoryHistory} from 'history'
-import {Router} from 'react-router-dom';
+import {Route, Router, Switch} from 'react-router-dom';
 
 beforeEach(() => jest.clearAllMocks())
 
 describe('RecipeDetail', () => {
     it('should return information', async () => {
-        jest.spyOn(RecipeAPI, 'getRecipe')
+        jest.spyOn(RecipeAPI, 'get')
             .mockImplementation(() => Promise.resolve({
-                id: 1,
+                id: '1',
                 name: 'Tomato',
                 description: 'Tomato Description',
                 ingredients:[]
@@ -21,7 +21,9 @@ describe('RecipeDetail', () => {
         history.push(route)
         render(
             <Router history={history}>
-                <RecipeDetail/>
+                <Switch>
+                    <Route path="/recipe/:id" component={RecipeDetail}/>
+                </Switch>
             </Router>
         )
         expect(await waitForElement(() => screen.queryByText('1'))).toBeInTheDocument()

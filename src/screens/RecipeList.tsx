@@ -4,12 +4,15 @@ import {Recipe as RecipeComponent} from '../components/Recipe';
 
 export const RecipeList = () => {
     const [data, setData] = useState([] as Array<Recipe>);
-
-    useEffect(() => {
-        RecipeAPI.getRecipeList()
+    const onDelete = (id: string) => {
+        RecipeAPI.getAll()
             .then(value => setData(value))
-    },[]);
+    }
+    useEffect(() => {
+        RecipeAPI.getAll()
+            .then(value => setData(value))
+    }, []);
     return (
-        <RecipeComponent.List recipes={data}/>
+        <RecipeComponent.List recipes={data} onDelete={onDelete}/>
     )
 }

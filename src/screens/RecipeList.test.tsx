@@ -10,14 +10,14 @@ beforeEach(() => jest.clearAllMocks())
 
 describe('RecipeDetail', () => {
     it('should return information', async () => {
-        jest.spyOn(RecipeAPI, 'getRecipeList')
+        jest.spyOn(RecipeAPI, 'getAll')
             .mockImplementation(() => Promise.resolve([{
-                id: 1,
+                id: '1',
                 name: 'Tomato',
                 description: 'Tomato Description',
                 ingredients: []
             }, {
-                id: 2,
+                id: '2',
                 name: 'Banana',
                 description: 'A Simple Banana',
                 ingredients: []

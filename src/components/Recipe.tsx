@@ -18,6 +18,7 @@ const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
         let isUpdate = (props.recipe !== undefined)
         newRecipe.name = name
         newRecipe.description = description
+        console.log(newRecipe)
         props.onSubmit(newRecipe, isUpdate);
     }
 
@@ -38,7 +39,7 @@ const Detail = (props: { recipe?: RecipeAPI; onSubmit: Function }) => {
                 <DetailComponent.Row>
                     <DetailComponent.Name>Description:</DetailComponent.Name>
                     <DetailComponent.Value>
-                        <input type="text" name="name" value={description} onChange={handleDescriptionChange}
+                        <input type="text" name="description" value={description} onChange={handleDescriptionChange}
                                placeholder='Name'/>
                     </DetailComponent.Value>
                 </DetailComponent.Row>
