@@ -28,15 +28,15 @@ docker-db-clean: ## Builds the docker image with tag `{DOCKER_IMAGE_NAME}` or `t
 docker: ## Builds the docker image with tag `{DOCKER_IMAGE_NAME}` or `travelperk-university-frontend`
 	docker build -t $(DOCKER_IMAGE_NAME) .
 
-docker-storybook: ## Builds the docker image with tag `{DOCKER_IMAGE_STORYBOOK_NAME}` or `travelperk-university-frontend-storybook`
-	docker build -f Dockerfile-storybook -t $(DOCKER_IMAGE_STORYBOOK_NAME) .
-
 docker-push: ## Tags and pushes with the required name:tag `{DOCKER_REMOTE_IMAGE}`.
 	docker tag $(DOCKER_IMAGE_NAME) $(DOCKER_REMOTE_IMAGE)
 	docker push $(DOCKER_REMOTE_IMAGE)
 
+docker-storybook: ## Builds the docker image with tag `{DOCKER_IMAGE_STORYBOOK_NAME}` or `travelperk-university-frontend-storybook`
+	docker build -f Dockerfile-storybook -t $(DOCKER_IMAGE_STORYBOOK_NAME) .
+
 docker-storybook-push: ## Tags and pushes with the required name:tag `{DOCKER_REMOTE_IMAGE}`.
-	docker tag $(DOCKER_IMAGE_NAME) $(DOCKER_IMAGE_STORYBOOK_NAME)
+	docker tag $(DOCKER_IMAGE_STORYBOOK_NAME) $(DOCKER_REMOTE_IMAGE)
 	docker push $(DOCKER_REMOTE_IMAGE)
 
 docker-storybook-run: ## Tags and pushes with the required name:tag `{DOCKER_REMOTE_IMAGE}`.

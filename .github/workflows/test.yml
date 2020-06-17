@@ -14,5 +14,5 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 14.4.0
-      - name: Build Docker Image
+      - name: Run Tests
         run: make dep test-ci
